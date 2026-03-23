@@ -1,23 +1,23 @@
+import sys
+
 def calculator():
-    print("--- Python Terminal Calculator ---")
-    print("Enter 'quit' to exit.")
+    # Check if the user provided an argument (sys.argv[0] is the filename)
+    if len(sys.argv) < 2:
+        print("Usage: python calc.py '2 + 2'")
+        sys.exit(1)
 
-    while True:
-        # Get user input
-        user_input = input("\nEnter math (e.g., 2 + 2) or 'quit': ").strip().lower()
+    # Join all arguments into one string (e.g., 2 + 2 becomes "2+2")
+    expression = "".join(sys.argv[1:])
 
-        if user_input == 'quit':
-            print("Goodbye!")
-            break
-
-        try:
-            # eval() processes the string as a math equation
-            result = eval(user_input)
-            print(f"Result: {result}")
-        except ZeroDivisionError:
-            print("Error: You can't divide by zero!")
-        except Exception:
-            print("Error: Invalid input. Please use numbers and +, -, *, /")
+    try:
+        result = eval(expression)
+        print(f"Result: {result}")
+    except ZeroDivisionError:
+        print("Error: Division by zero.")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error: Invalid expression. {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     calculator()
